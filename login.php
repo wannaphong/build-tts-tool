@@ -1,33 +1,27 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Signin Template for Bootstrap</title>
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
-  </head>
-
-  <body class="text-center">
-    <form class="form-signin">
-      <--!<img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">-->
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-    </form>
-  </body>
-</html>
+<?php
+require_once("settimezone.php");
+require('db.php');
+require_once('keyhash.php');
+require_once('cryptor.php');
+$password = $_POST['password'] = isset($_POST['password']) ? $_POST['password'] : '';
+$email = $_POST['email'] = isset($_POST['email']) ? $_POST['email'] : '';
+if($email!=''&&$password!=''){
+    $password=gotopass($password);
+    $data = $database->select("member",array("email","name","id"),array('AND' => array('email[=]' =>$email, 'password[=]'=> $password)));
+    //());
+   // print $database->last_query();
+     //$get= json_encode($data);
+        if($data){
+            $encrypted_txt    = Cryptor::doEncrypt($data[0]['id']);
+           $cookie_name = "user";
+            $cookie_value = $encrypted_txt;
+        // echo $data[0]['id'];
+            setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day*/
+            echo "<br>OK<br>";
+           // echo Cryptor::doDecrypt($encrypted_txt);
+        }
+        else{
+            echo "error";
+        }
+}
+?>
