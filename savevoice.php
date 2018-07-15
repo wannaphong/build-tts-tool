@@ -1,4 +1,40 @@
-//webkitURL is deprecated but nevertheless
+<?php
+$idpost=1;
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Simple WebAudioRecorder.js demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+  	<h1>WebAudioRecorder.js demo</h1> 
+  	<p><a href="https://github.com/higuma/web-audio-recorder-js" target="_blank">WebAudioRecorder.js</a> is a JavaScript library written in 2015 by higuma that can record audio and encode to common formats (pcm, Vorbis, mp3) directly in the browser.</p>
+	<p>Check out the <a href="https://github.com/addpipe/simple-web-audio-recorder-demo" target="_blank">code on GitHub</a> and our <a href="https://addpipe.com/blog/using-webaudiorecorder-js-to-record-audio-on-your-website/" target="_blank">blog post on using WebAudioRecorder.js to Record MP3, Vorbis and WAV Audio</a>.</p>
+    <p>Convert recorded audio to:<br>
+    <select id="encodingTypeSelect">
+	  <option value="wav">Waveform Audio (.wav)</option>
+	  <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
+	  <option value="ogg">Ogg Vorbis (.ogg)</option>
+	</select>
+	</p>
+	<div id="controls">
+		<button id="recordButton">Record</button>
+		<button id="stopButton" disabled>Stop</button>
+	</div>
+	<div id="formats"></div>
+	<h3>Log</h3>
+	<pre id="log"></pre>
+
+	<h3>Recordings</h3>
+	<ol id="recordingsList"></ol>
+  
+  	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="js/WebAudioRecorder.min.js"></script>
+	<script>
+		//webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
 
 var gumStream; 						//stream from getUserMedia()
@@ -146,11 +182,32 @@ function createDownloadLink(blob,encoding) {
 
 	//add the li element to the ordered list
 	recordingsList.appendChild(li);
+
+	var filename = new Date().toISOString(); //filename to send to server without extension
+//upload link
+var upload = document.createElement('a');
+upload.href="#";
+upload.innerHTML = "Upload";
+upload.addEventListener("click", function(event){
+      var xhr=new XMLHttpRequest();
+      xhr.onload=function(e) {
+          if(this.readyState === 4) {
+              console.log("Server returned: ",e.target.responseText);
+          }
+      };
+      var fd=new FormData();
+      fd.append("audio_data",blob, filename);
+      xhr.open("POST","uploadaudio.php",true);
+      xhr.send(fd);
+})
+li.appendChild(document.createTextNode (" "))//add a space in between
+li.appendChild(upload)//add the u
 }
-
-
 
 //helper function
 function __log(e, data) {
 	log.innerHTML += "\n" + e + " " + (data || '');
 }
+	</script>
+
+  </body>
