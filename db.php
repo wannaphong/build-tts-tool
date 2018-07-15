@@ -6,6 +6,7 @@ $database = new Medoo([
         'database_name' => 'tts',
         'server' => 'localhost',
         'username' => 'root',
-        'password' => ''
+        'password' => '',
+        "charset" => "utf8"
     ]);
 ?>

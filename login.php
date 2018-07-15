@@ -7,7 +7,7 @@ $password = $_POST['password'] = isset($_POST['password']) ? $_POST['password'] 
 $email = $_POST['email'] = isset($_POST['email']) ? $_POST['email'] : '';
 if($email!=''&&$password!=''){
     $password=gotopass($password);
-    $data = $database->select("member",array("email","name","id"),array('AND' => array('email[=]' =>$email, 'password[=]'=> $password)));
+    $data = $database->select("member",array("id"),array('AND' => array('email[=]' =>$email, 'password[=]'=> $password)));
     //());
    // print $database->last_query();
      //$get= json_encode($data);
