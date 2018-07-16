@@ -242,12 +242,14 @@ upload.addEventListener("click", function(event){
       xhr.onload=function(e) {
           if(this.readyState === 4) {
               console.log("Server returned: ",e.target.responseText);
+			  window.location.reload(false); //reload the page
           }
       };
       var fd=new FormData();
       fd.append("audio_data",blob,"<?php echo $idpost.'.wav' ?>");
       xhr.open("POST","uploadaudio.php",true);
       xhr.send(fd);
+	  
 })
 li.appendChild(document.createTextNode (" "))//add a space in between
 li.appendChild(upload)//add the u

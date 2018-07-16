@@ -15,17 +15,35 @@ $id=$_POST['id'] = isset($_POST['id']) ? $_POST['id'] : '';
 </head>
 <body>
 <?php
-if($text!=''){
+if(file_exists($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) 
+{
+    $fh = fopen($_FILES['file']['tmp_name'], 'r+');
+
+    $lines = array();
+    while( ($row = fgetcsv($fh, 8192)) !== FALSE ) {
+        $lines[] = $row;
+    }
+    var_dump($lines);
+    foreach ($lines as $line) {
     $database->insert('textcorpus', [
-        'txt'=>$text,
-        'txt_read' => $text_read,
+        'txt'=>$line[0],
+        'txt_read' => $line[1],
         'idcorpus' => $id
     ]);
+    }
+}  
+else if($text!=''){
+        echo 'upload';
+        $database->insert('textcorpus', [
+            'txt'=>$text,
+            'txt_read' => $text_read,
+            'idcorpus' => $id
+        ]);
     echo $text;
     echo '<br>';
 }
 ?>
-<form action="addtxt.php" method="post">
+<form action="addtxt.php" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 text: <input type="text" name="text"><br>
 คำอ่าน: <input type="text" name="text_read"><br>
 คลังข้อมูล: <select name="id">
@@ -37,7 +55,9 @@ foreach ($data as $value) {
     }
 }
 ?>
-</select><br>
+</select>
+<br>
+อัพโหลดไฟล์ : <input type="file" name="file"></br>
 <input type="submit">
 <input type="reset">
 </form>
