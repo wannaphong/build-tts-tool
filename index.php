@@ -8,6 +8,7 @@
   <body>
 <h1>ระบบอัดเสียงสำหรับ TTS</h1><br>
 <a href="login.html">เข้าสู่ระบบ</a><br>
+<a href="register.html">สมัครสมาชิก</a><br>
 <a href="corpus.php">คลังข้อมูล</a><br>
 <a href="newcorpus.php">เพิ่มคลังข้อมูล</a><br>
 <a href="addtxt.php">เพิ่มข้อมูลลงคลังข้อมูล</a><br>

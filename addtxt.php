@@ -1,5 +1,8 @@
 <?php
 //require_once('block_not_login.php');
+require('block_not_login.php');
+require_once('cryptor.php');
+$iduser= Cryptor::doDecrypt($_COOKIE['user']);
 require('db.php');
 $text = $_POST['text'] = isset($_POST['text']) ? $_POST['text'] : '';
 $text_read = $_POST['text_read'] = isset($_POST['text_read']) ? $_POST['text_read'] : '';
@@ -29,7 +32,9 @@ text: <input type="text" name="text"><br>
 <?php
 $data = $database->select("corpus",'*');
 foreach ($data as $value) {
-    echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';
+    if($iduser==$value['id_user']){
+        echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';
+    }
 }
 ?>
 </select><br>

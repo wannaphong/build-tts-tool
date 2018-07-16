@@ -1,4 +1,5 @@
 <?php
+require('block_not_login.php');
 require('settimezone.php');
 if(isset($_COOKIE['user'])){
     //print_r($_FILES); //this will print out the received name, temp name, type, size, etc.

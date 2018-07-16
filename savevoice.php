@@ -1,4 +1,5 @@
 <?php
+require('block_not_login.php');
 require_once('cryptor.php');
 $iduser= Cryptor::doDecrypt($_COOKIE['user']);
 $idpost=$_GET["id"];
@@ -51,7 +52,7 @@ foreach($datas as $data) {
 ?>
 <tr>
  <td>
- <audio controls>
+ <audio controls> <!--id="player">-->
  	<source src="voice/<?php echo $data["path"]; ?>"type="audio/wav">
  </audio>
 </td>
@@ -77,7 +78,8 @@ foreach($datas as $data) {
 }
 ?>
 </table>
-  
+<script src="https://cdn.plyr.io/3.3.21/plyr.js"></script>
+<script>const player = new Plyr('#player');</script>
   	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
 	<script src="js/WebAudioRecorder.min.js"></script>
 	<script>

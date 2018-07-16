@@ -1,5 +1,5 @@
 <?php
-//require_once('block_not_login.php');
+require('block_not_login.php');
 require('db.php');
 $name= $_POST['name'] = isset($_POST['name']) ? $_POST['name'] : '';
 $text = $_POST['text'] = isset($_POST['text']) ? $_POST['text'] : '';

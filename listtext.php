@@ -1,4 +1,5 @@
 <?php
+require('block_not_login.php');
 require_once('cryptor.php');
 $iduser= Cryptor::doDecrypt($_COOKIE['user']);
 $idcorpus=$_GET["id"];

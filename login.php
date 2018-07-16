@@ -18,6 +18,8 @@ if($email!=''&&$password!=''){
         // echo $data[0]['id'];
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day*/
             echo "<br>OK<br>";
+            header("Location: index.php"); /* Redirect browser */
+            exit();
            // echo Cryptor::doDecrypt($encrypted_txt);
         }
         else{

@@ -1,11 +1,9 @@
 <?php
+require('block_not_login.php');
 $name="user";
-setcookie ($name, "", 1);
-setcookie ($name, false);
+setcookie($name, "", time() - 3600, '/');
 unset($_COOKIE[$name]);
-if(count($_COOKIE) > 0) {
-    echo "Cookies are enabled.";
-} else {
-    echo "Cookies are disabled.";
-}
+// empty value and expiration one hour before
+header("Location: index.php"); /* Redirect browser */
+exit();
 ?>

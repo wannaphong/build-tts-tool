@@ -1,6 +1,5 @@
 <?php
-require_once('check_login.php');
-if(check_login()){
+if(isset($_COOKIE['user'])){
 
 }
 else{

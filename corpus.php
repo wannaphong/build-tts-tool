@@ -1,4 +1,5 @@
 <?php
+require('block_not_login.php');
 require("db.php");
 $datas = $database->select("corpus","*");
 ?>
