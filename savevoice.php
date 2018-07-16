@@ -1,23 +1,27 @@
 <?php
-$idpost=1;
+require_once('cryptor.php');
+$iduser= Cryptor::doDecrypt($_COOKIE['user']);
+$idpost=$_GET["id"];
+require('db.php');
+$data = $database->select("textcorpus",'*',array('id[=]' =>$idpost));
+$post=$data[0];
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Simple WebAudioRecorder.js demo</title>
+    <title>อัดเสียง</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-  	<h1>WebAudioRecorder.js demo</h1> 
-  	<p><a href="https://github.com/higuma/web-audio-recorder-js" target="_blank">WebAudioRecorder.js</a> is a JavaScript library written in 2015 by higuma that can record audio and encode to common formats (pcm, Vorbis, mp3) directly in the browser.</p>
-	<p>Check out the <a href="https://github.com/addpipe/simple-web-audio-recorder-demo" target="_blank">code on GitHub</a> and our <a href="https://addpipe.com/blog/using-webaudiorecorder-js-to-record-audio-on-your-website/" target="_blank">blog post on using WebAudioRecorder.js to Record MP3, Vorbis and WAV Audio</a>.</p>
-    <p>Convert recorded audio to:<br>
+	  <h1>อัดเสียง</h1> 
+	  <h2>ข้อความ : <?php echo $post['txt'] ?></h2>
+	  <h2>ข้อความที่อ่าน : <?php echo $post['txt_read'] ?></h2>
+  	<p>อัดเสียงลงระบบ</p>
+    <p>ชนิดไฟล์เสียง:<br>
     <select id="encodingTypeSelect">
 	  <option value="wav">Waveform Audio (.wav)</option>
-	  <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
-	  <option value="ogg">Ogg Vorbis (.ogg)</option>
 	</select>
 	</p>
 	<div id="controls">
@@ -30,6 +34,31 @@ $idpost=1;
 
 	<h3>Recordings</h3>
 	<ol id="recordingsList"></ol>
+	<h3>เสียงที่อยู่ในระบบ</h3>
+	<?php
+$datas = $database->select("voice","*",array('AND' => array('id_user[=]' =>$iduser, 'id_txt[=]'=> $idpost)));
+?>
+<table border="1">
+<tr>
+    <th>เสียง</th>
+    <th>วันเดือนปีที่อัด</th>
+    <th>อัดเสียง</th>
+  </tr>
+<?php
+foreach($datas as $data) {
+?>
+<tr>
+ <td>
+ <audio controls>
+ 	<source src="voice/<?php echo $data["path"]; ?>"type="audio/wav">
+ </audio>
+</td>
+ <td><?php echo $data["date_save"]; ?></td>
+</tr>
+<?php
+}
+?>
+</table>
   
   	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
 	<script src="js/WebAudioRecorder.min.js"></script>
@@ -196,7 +225,7 @@ upload.addEventListener("click", function(event){
           }
       };
       var fd=new FormData();
-      fd.append("audio_data",blob, filename);
+      fd.append("audio_data",blob,"<?php echo $idpost.'.wav' ?>");
       xhr.open("POST","uploadaudio.php",true);
       xhr.send(fd);
 })
@@ -211,3 +240,4 @@ function __log(e, data) {
 	</script>
 
   </body>
+  </html>
