@@ -21,7 +21,7 @@ if(isset($_COOKIE['user'])){
             'path'=>$file_name1,
             'id_txt' => $id_txt,
             'date_save' => date("Y-m-d H:i:s"),
-            'is_use'=>0
+            'is_use'=>false
         ]);
     }
     else{

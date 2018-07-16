@@ -33,6 +33,7 @@ $post=$data[0];
 	<pre id="log"></pre>
 
 	<h3>Recordings</h3>
+	<p>เลือกเสียงที่ดีที่สุดแล้วกด upload</p><br>
 	<ol id="recordingsList"></ol>
 	<h3>เสียงที่อยู่ในระบบ</h3>
 	<?php
@@ -42,7 +43,8 @@ $datas = $database->select("voice","*",array('AND' => array('id_user[=]' =>$idus
 <tr>
     <th>เสียง</th>
     <th>วันเดือนปีที่อัด</th>
-    <th>อัดเสียง</th>
+	<th>สถานะ</th>
+	<th>เปลี่ยนสถานะ</th>
   </tr>
 <?php
 foreach($datas as $data) {
@@ -54,6 +56,22 @@ foreach($datas as $data) {
  </audio>
 </td>
  <td><?php echo $data["date_save"]; ?></td>
+ <td><?php 
+ if($data["is_use"]){
+	 echo "ใช้";
+ }
+ else{
+	 echo "ไม่ใช้";
+ }
+ ?></td>
+ <td><?php 
+ if($data["is_use"]){
+	 //echo "ใช้";
+ }
+ else{
+	 echo "<a href='updateuse.php?id=".$idpost."&idpost=".$data["id"]."'>เปลี่ยน</a>";
+ }
+ ?></td>
 </tr>
 <?php
 }
