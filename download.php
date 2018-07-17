@@ -16,7 +16,6 @@ foreach ($txtall as $line ) {
     if($datas0){
         fputcsv($fp, array($datas0[0]['path'],$line['txt'],$line['txt_read']));
     }
-    
 }
 fclose($fp);
 ?>

@@ -57,7 +57,7 @@ foreach ($data as $value) {
 ?>
 </select>
 <br>
-อัพโหลดไฟล์ : <input type="file" name="file"></br>
+อัพโหลดไฟล์ (ประโยค,ประโยคอ่าน) : <input type="file" name="file"></br>
 <input type="submit">
 <input type="reset">
 </form>

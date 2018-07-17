@@ -1,8 +1,8 @@
 <?php
 require('block_not_login.php');
+$idpost=$_GET["id"];
 require_once('cryptor.php');
 $iduser= Cryptor::doDecrypt($_COOKIE['user']);
-$idpost=$_GET["id"];
 require('db.php');
 $data = $database->select("textcorpus",'*',array('id[=]' =>$idpost));
 $post=$data[0];
@@ -249,7 +249,6 @@ upload.addEventListener("click", function(event){
       fd.append("audio_data",blob,"<?php echo $idpost.'.wav' ?>");
       xhr.open("POST","uploadaudio.php",true);
       xhr.send(fd);
-	  
 })
 li.appendChild(document.createTextNode (" "))//add a space in between
 li.appendChild(upload)//add the u
