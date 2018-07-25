@@ -6,6 +6,7 @@ $idcorpus=$_GET["id"];
 require("db.php");
 $datas = $database->select("textcorpus","*",array('idcorpus[=]' =>$idcorpus));
 ?>
+<a href="addtxt.php">เพิ่มข้อมูลลงคลัง</a>
 <table border="1">
 <tr>
     <th>TEXT</th>

@@ -3,6 +3,7 @@ require('block_not_login.php');
 require("db.php");
 $datas = $database->select("corpus","*");
 ?>
+<a href="newcorpus.php">เพิ่มคลังข้อมูล</a><br>
 <table border="1">
 <tr>
     <th>NAME</th>
