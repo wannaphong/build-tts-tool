@@ -1,10 +1,18 @@
 <?php
+require_once 'template.php';
+include("setting.php");
+
 require('block_not_login.php');
 require("db.php");
 $datas = $database->select("corpus","*");
-?>
+
+
+// Initialize object
+$tpl = new template('index.tp');
+
+$listall='
 <a href="newcorpus.php">เพิ่มคลังข้อมูล</a><br>
-<table border="1">
+<table class="table table-bordered dataTable" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
 <tr>
     <th>NAME</th>
     <th>TEXT</th>
@@ -12,17 +20,29 @@ $datas = $database->select("corpus","*");
     <th>ไฟล์กำกับ</th>
     <th>ไฟล์เสียง</th>
   </tr>
-<?php
+';
 foreach($datas as $data) {
-?>
+  $listall.= '
 <tr>
- <td><?php echo $data["name"]; ?></td>
- <td><?php echo $data["txt"]; ?></td>
- <td><a href="listtext.php?id=<?php echo $data["id"]; ?>">คลิก</a></td>
- <td><a href="download.php?id=<?php echo $data["id"]; ?>">โหลดไฟล์</a></br></td>
- <td><a href="downloadvoice.php?id=<?php echo $data["id"]; ?>">โหลดไฟล์</a></br></td>
-</tr>
-<?php
-}
-?>
-</table>
+ <td>'.$data["name"].'</td>
+ <td>'.$data["txt"].'</td>
+ <td><a href="listtext.php?id='.$data["id"].'">คลิก</a></td>
+ <td><a href="download.php?id='.$data["id"].'">โหลดไฟล์</a></br></td>
+ <td><a href="downloadvoice.php?id='.$data["id"].'">โหลดไฟล์</a></br></td>
+</tr>';}
+$listall.='</table>';
+
+$tpl->set('name', 'คลังข้อมูล');
+$tpl->set('web', $web);
+$tpl->set('content', $listall);
+$tpl->set('menu-1',$menu1);
+$tpl->set('login-out','<i class="fa fa-fw fa-sign-out"></i><a href="logout.php" class="pure-menu-link">ลงชื่อออก</a>');
+
+// Set {header} as a header.tpl file
+//$tpl->set('header', $tpl->getFile('header.tpl'));
+
+// Render the template
+$tpl->render();
+
+/*
+*/

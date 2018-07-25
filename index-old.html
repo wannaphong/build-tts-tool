@@ -28,11 +28,22 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="/">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
+            <span class="nav-link-text">หน้าหลัก</span>
           </a>
         </li>
+        <?php if(isset($_COOKIE['user'])){
+          echo '<li class="nav-item" data-toggle="tooltip" data-placement="right" title="คลังข้อมูล"> <a class="nav-link" href="corpus.php">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">Charts</span>
+          </a>
+        </li>';
+          echo '<li class="pure-menu-item"><a href="logout.php" class="pure-menu-link">ลงชื่อออก</a></li>';
+      }
+      else{
+       echo '<li class="pure-menu-item"><a href="login.html" class="pure-menu-link">เข้าสู่ระบบ</a></li>';
+      }?>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="charts.html">
             <i class="fa fa-fw fa-area-chart"></i>
