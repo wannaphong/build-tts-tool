@@ -9,7 +9,7 @@ require('db.php');
 $data = $database->select("textcorpus",'*',array('id[=]' =>$idpost));
 $post=$data[0];
 $listall="";
-if($post['txt_read']!=""){
+if($post['txt_read']!=null){
     $listall.='<h1>'.$post["txt_read"].'</h1>
     <p>ชนิดไฟล์เสียง:<br>
     <select id="encodingTypeSelect">
@@ -32,7 +32,7 @@ if($post['txt_read']!=""){
     $listall.='<table border="1">
 <tr>
     <th>เสียง</th>
-    <th>วันเดือนปีที่อัด</th>
+ <!--   <th>วันเดือนปีที่อัด</th>-->
 	<th>สถานะ</th>
 	<th>เปลี่ยนสถานะ</th>
   </tr>';
@@ -43,7 +43,7 @@ if($post['txt_read']!=""){
  	<source src="voice/'.$data["path"].'"type="audio/wav">
  </audio>
 </td>
- <td>'.$data["date_save"].'</td>
+ <!--<td>'.$data["date_save"].'</td>-->
  <td>';
     if($data["is_use"]){
 	 $listall.="ใช้";
