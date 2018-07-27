@@ -14,14 +14,20 @@ a:hover {
 a:visited {
   color: #8d75a3;
 }
-body {
+h1{
+  font-size: 50px;
+  border: 2px solid #f00;
+  border-radius: 5px;
+  padding: 3px;
+}
+/*body {
   margin: 1rem;
   padding: 1rem;
   font-family: sans-serif;
-  max-width: 28rem;
+  max-width: 50rem;
   margin: 0 auto;
   position: relative;
-}
+}*/
 #controls {
   display: flex;
   margin-top: 2rem;

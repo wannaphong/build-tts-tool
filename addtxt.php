@@ -40,6 +40,16 @@ else if($text!=''){
     echo '<br>';*/
 }
 $listall='
+<ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.php">หน้าหลัก</a>
+        </li>
+        <li class="breadcrumb-item"><a href="corpus.php">คลังข้อมูล</a></li>
+        <li class="breadcrumb-item"><a href="listtext.php?id='.$id.'">รายการคลังข้อมูล</a>
+        </li>
+        <li class="breadcrumb-item active">เพิ่มข้อมูลลงคลังข้อมูล
+        </li>
+</ol>
 <form action="addtxt.php" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 text: <input type="text" name="text"><br>
 คำอ่าน: <input type="text" name="text_read"><br>
@@ -62,6 +72,8 @@ $tpl->set('name', 'เพิ่มคลังข้อมูล');
 $tpl->set('web', $web);
 
 $tpl->set('menu-1',$menu1);
-$tpl->set('login-out','<i class="fa fa-fw fa-sign-out"></i><a href="logout.php" class="pure-menu-link">ลงชื่อออก</a>');
+$tpl->set('head',$head);
+$tpl->set('login-out',$menulogout);
 $tpl->set('content', $listall);
 $tpl->render();
+?>

@@ -13,10 +13,10 @@ if(isset($_COOKIE['user'])){
         $file_name1=$id.'_'.date("Y_m_d_H_i_s").'.wav';
         $newfile=$target_dir.$file_name1;
         if (move_uploaded_file($input,$newfile )) {
-            echo "The file ".  " has been uploaded.";
+            echo "The file "." has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
-        }       
+        }
         $database->insert('voice', [
             'id_user'=>$id,
             'path'=>$file_name1,

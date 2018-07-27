@@ -6,20 +6,20 @@ $iduser= Cryptor::doDecrypt($_COOKIE['user']);
 require('db.php');
 $data = $database->select("textcorpus",'*',array('id[=]' =>$idpost));
 $post=$data[0];
+if($post['txt_read']!=""){
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>อัดเสียง</title>
+    <title>อัดเสียง : <?php echo $post['txt_read'] ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-	  <h1>อัดเสียง</h1> 
-	  <h2>ข้อความ : <?php echo $post['txt'] ?></h2>
-	  <h2>ข้อความที่อ่าน : <?php echo $post['txt_read'] ?></h2>
-  	<p>อัดเสียงลงระบบ</p>
+	  <!--<h1>อัดเสียง</h1> -->
+	  <!--<h2>ข้อความ : <?php /*echo $post['txt'] */?></h2>-->
+	  <h1><?php echo $post["txt_read"] ?></h1>
     <p>ชนิดไฟล์เสียง:<br>
     <select id="encodingTypeSelect">
 	  <option value="wav">Waveform Audio (.wav)</option>
@@ -262,3 +262,7 @@ function __log(e, data) {
 
   </body>
   </html>
+<?php
+}
+else echo"error"; 
+?>
